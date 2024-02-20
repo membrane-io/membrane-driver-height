@@ -1,0 +1,597 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "A driver for the Height.app API",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "token",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          },
+          {
+            "name": "workspace",
+            "type": "Workspace"
+          },
+          {
+            "name": "lists",
+            "type": "TaskListCollection"
+          },
+          {
+            "name": "users",
+            "type": "UserCollection",
+            "params": []
+          },
+          {
+            "name": "tasks",
+            "type": "TaskCollection"
+          },
+          {
+            "name": "me",
+            "type": "User"
+          },
+          {
+            "name": "activities",
+            "type": "ActivityCollection"
+          }
+        ]
+      },
+      {
+        "name": "Workspace",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "model",
+            "type": "String"
+          },
+          {
+            "name": "name",
+            "type": "String"
+          },
+          {
+            "name": "url",
+            "type": "String",
+            "hints": {
+              "format": "url"
+            }
+          }
+        ]
+      },
+      {
+        "name": "TaskList",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "model",
+            "type": "String"
+          },
+          {
+            "name": "type",
+            "type": "String"
+          },
+          {
+            "name": "key",
+            "type": "String"
+          },
+          {
+            "name": "description",
+            "type": "String"
+          },
+          {
+            "name": "url",
+            "type": "String",
+            "hints": {
+              "format": "url"
+            }
+          },
+          {
+            "name": "appearance",
+            "type": "Appearance"
+          },
+          {
+            "name": "visualization",
+            "type": "String"
+          }
+        ],
+        "actions": [
+          {
+            "name": "patch",
+            "description": "Update a task list. Any parameters not provided will be left unchanged.",
+            "type": "Void",
+            "params": [
+              {
+                "name": "description",
+                "description": "test",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "name",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "visualization",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "archivedAt",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "icon",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "iconHue",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "duplicate",
+            "type": "Void",
+            "params": [
+              {
+                "name": "name",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TaskListPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "TaskList"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "TaskListPage"
+          }
+        ]
+      },
+      {
+        "name": "TaskListCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "TaskList",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "TaskListPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Appearance",
+        "fields": [
+          {
+            "name": "icon",
+            "type": "String"
+          },
+          {
+            "name": "hue",
+            "type": "Int"
+          },
+          {
+            "name": "iconUrl",
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "Task",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "model",
+            "type": "String"
+          },
+          {
+            "name": "index",
+            "type": "Int"
+          },
+          {
+            "name": "lists",
+            "type": "List",
+            "ofType": "TaskList"
+          },
+          {
+            "name": "name",
+            "type": "String"
+          },
+          {
+            "name": "description",
+            "type": "String"
+          },
+          {
+            "name": "status",
+            "type": "String"
+          },
+          {
+            "name": "assignees",
+            "type": "List",
+            "ofType": "User"
+          },
+          {
+            "name": "parentTask",
+            "type": "Task",
+            "ofType": "Task"
+          },
+          {
+            "name": "fields",
+            "type": "List",
+            "ofType": "TaskField"
+          },
+          {
+            "name": "deleted",
+            "type": "Boolean"
+          },
+          {
+            "name": "deletedAt",
+            "type": "String"
+          }
+        ],
+        "events": [],
+        "actions": [
+          {
+            "name": "postMessage",
+            "type": "Activity",
+            "params": [
+              {
+                "name": "type",
+                "type": "String"
+              },
+              {
+                "name": "message",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TaskField",
+        "fields": [
+          {
+            "name": "fieldTemplateId",
+            "type": "String"
+          },
+          {
+            "name": "value",
+            "type": "String"
+          },
+          {
+            "name": "date",
+            "type": "String"
+          },
+          {
+            "name": "labels",
+            "type": "List",
+            "ofType": "String"
+          },
+          {
+            "name": "linkedTasks",
+            "type": "List",
+            "ofType": "TaskLink"
+          }
+        ]
+      },
+      {
+        "name": "TaskLink",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "index",
+            "type": "Int"
+          }
+        ]
+      },
+      {
+        "name": "OrderIntent",
+        "fields": [
+          {
+            "name": "intent",
+            "type": "String",
+            "description": "Valid values are `start`, `end`, `before`, `after`"
+          },
+          {
+            "name": "taskId",
+            "type": "String",
+            "description": "Only used for before and afer intent"
+          }
+        ]
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "model",
+            "type": "String"
+          },
+          {
+            "name": "state",
+            "type": "String"
+          },
+          {
+            "name": "email",
+            "type": "String"
+          },
+          {
+            "name": "username",
+            "type": "String"
+          },
+          {
+            "name": "firstname",
+            "type": "String"
+          },
+          {
+            "name": "lastname",
+            "type": "String"
+          },
+          {
+            "name": "access",
+            "type": "String"
+          },
+          {
+            "name": "createdAt",
+            "type": "String"
+          },
+          {
+            "name": "pictureUrl",
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "UserPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "User"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "UserPage"
+          }
+        ]
+      },
+      {
+        "name": "UserCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "UserPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TaskPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Task"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "TaskPage"
+          }
+        ]
+      },
+      {
+        "name": "TaskCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Task",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "TaskPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "ofType": "Int",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Activity",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "model",
+            "type": "String"
+          },
+          {
+            "name": "createdAt",
+            "type": "String"
+          },
+          {
+            "name": "task",
+            "type": "Task"
+          },
+          {
+            "name": "createdUser",
+            "type": "User"
+          },
+          {
+            "name": "type",
+            "type": "String"
+          },
+          {
+            "name": "messasge",
+            "type": "String"
+          },
+          {
+            "name": "oldValue",
+            "type": "String"
+          },
+          {
+            "name": "newValue",
+            "type": "String"
+          },
+          {
+            "name": "readUsers",
+            "type": "List",
+            "ofType": "User"
+          },
+          {
+            "name": "url",
+            "type": "String"
+          }
+        ]
+      },
+      {
+        "name": "ActivityPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Activity"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "ActivityPage"
+          }
+        ]
+      },
+      {
+        "name": "ActivityCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Activity",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "ActivityPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}
