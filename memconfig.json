@@ -7,11 +7,13 @@
         "actions": [
           {
             "name": "configure",
+            "description": "Configures the Height driver with a API token",
             "type": "Void",
             "params": [
               {
                 "name": "token",
-                "type": "String"
+                "type": "String",
+                "description": "A string representing the API token"
               }
             ]
           }
@@ -19,53 +21,65 @@
         "fields": [
           {
             "name": "status",
-            "type": "String"
+            "type": "String",
+            "description": "Status of the Height Driver"
           },
           {
             "name": "workspace",
-            "type": "Workspace"
+            "type": "Workspace",
+            "description": "Information about the workspace"
           },
           {
             "name": "lists",
-            "type": "TaskListCollection"
+            "type": "TaskListCollection",
+            "description": "Collection of task lists"
           },
           {
             "name": "users",
             "type": "UserCollection",
+            "description": "Collection of users",
             "params": []
           },
           {
             "name": "tasks",
-            "type": "TaskCollection"
+            "type": "TaskCollection",
+            "description": "Collection of tasks"
           },
           {
             "name": "me",
-            "type": "User"
+            "type": "User",
+            "description": "Current user's information"
           },
           {
             "name": "activities",
-            "type": "ActivityCollection"
+            "type": "ActivityCollection",
+            "description": "Collection of activities"
           }
         ]
       },
       {
         "name": "Workspace",
+        "description": "Represents a workspace",
         "fields": [
           {
             "name": "id",
-            "type": "String"
+            "type": "String",
+            "description": "Identifier for the workspace"
           },
           {
             "name": "model",
-            "type": "String"
+            "type": "String",
+            "description": "Model information"
           },
           {
             "name": "name",
-            "type": "String"
+            "type": "String",
+            "description": "Name of the workspace"
           },
           {
             "name": "url",
             "type": "String",
+            "description": "URL of the workspace",
             "hints": {
               "format": "url"
             }
@@ -74,41 +88,50 @@
       },
       {
         "name": "TaskList",
+        "description": "Represents a task list",
         "fields": [
           {
             "name": "id",
-            "type": "String"
+            "type": "String",
+            "description": "Identifier for the list"
           },
           {
             "name": "model",
-            "type": "String"
+            "type": "String",
+            "description": "The model is always `list`"
           },
           {
             "name": "type",
-            "type": "String"
+            "type": "String",
+            "description": "Type of the list"
           },
           {
             "name": "key",
-            "type": "String"
+            "type": "String",
+            "description": "The unique key of your list is used as their url"
           },
           {
             "name": "description",
-            "type": "String"
+            "type": "String",
+            "description": "Description of the list"
           },
           {
             "name": "url",
             "type": "String",
+            "description": "URL of the list",
             "hints": {
               "format": "url"
             }
           },
           {
             "name": "appearance",
-            "type": "Appearance"
+            "type": "Appearance",
+            "description": "Appearance settings"
           },
           {
             "name": "visualization",
-            "type": "String"
+            "type": "String",
+            "description": "Visualization settings"
           }
         ],
         "actions": [
@@ -119,44 +142,51 @@
             "params": [
               {
                 "name": "description",
-                "description": "test",
+                "description": "Description of the list",
                 "type": "String",
                 "optional": true
               },
               {
                 "name": "name",
                 "type": "String",
+                "description": "Name of the list",
                 "optional": true
               },
               {
                 "name": "visualization",
                 "type": "String",
+                "description": "Visualization settings",
                 "optional": true
               },
               {
                 "name": "archivedAt",
                 "type": "String",
+                "description": "ISO 8601 date string",
                 "optional": true
               },
               {
                 "name": "icon",
                 "type": "String",
+                "description": "Icon associated with the list",
                 "optional": true
               },
               {
                 "name": "iconHue",
-                "type": "String",
+                "type": "Int",
+                "description": "Hue of the icon",
                 "optional": true
               }
             ]
           },
           {
             "name": "duplicate",
+            "description": "Duplicate a list",
             "type": "Void",
             "params": [
               {
                 "name": "name",
                 "type": "String",
+                "description": "Name of the duplicated list",
                 "optional": true
               }
             ]
@@ -165,21 +195,25 @@
       },
       {
         "name": "TaskListPage",
+        "description": "Represents a page of task lists",
         "fields": [
           {
             "name": "items",
             "type": "List",
-            "ofType": "TaskList"
+            "ofType": "TaskList",
+            "description": "List of task lists"
           },
           {
             "name": "next",
             "type": "Ref",
-            "ofType": "TaskListPage"
+            "ofType": "TaskListPage",
+            "description": "Reference to the next page of task lists"
           }
         ]
       },
       {
         "name": "TaskListCollection",
+        "description": "Collection of task lists",
         "fields": [
           {
             "name": "one",
@@ -187,9 +221,11 @@
             "params": [
               {
                 "name": "id",
-                "type": "String"
+                "type": "String",
+                "description": "Identifier for the task list"
               }
-            ]
+            ],
+            "description": "Retrieves a single task list"
           },
           {
             "name": "page",
@@ -198,103 +234,126 @@
               {
                 "name": "page",
                 "type": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Page number"
               },
               {
                 "name": "pageSize",
                 "type": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Size of the page"
               }
-            ]
+            ],
+            "description": "Retrieves a page of task lists"
           }
         ]
       },
       {
         "name": "Appearance",
+        "description": "Represents appearance settings",
         "fields": [
           {
             "name": "icon",
-            "type": "String"
+            "type": "String",
+            "description": "Icon information"
           },
           {
             "name": "hue",
-            "type": "Int"
+            "type": "Int",
+            "description": "Hue value"
           },
           {
             "name": "iconUrl",
-            "type": "String"
+            "type": "String",
+            "description": "URL of the icon"
           }
         ]
       },
       {
         "name": "Task",
+        "description": "Represents a task",
         "fields": [
           {
             "name": "id",
-            "type": "String"
+            "type": "String",
+            "description": "Identifier for the task"
           },
           {
             "name": "model",
-            "type": "String"
+            "type": "String",
+            "description": "Model information"
           },
           {
             "name": "index",
-            "type": "Int"
+            "type": "Int",
+            "description": "Index of the task"
           },
           {
             "name": "lists",
             "type": "List",
-            "ofType": "TaskList"
+            "ofType": "TaskList",
+            "description": "Lists associated with the task"
           },
           {
             "name": "name",
-            "type": "String"
+            "type": "String",
+            "description": "Name of the task"
           },
           {
             "name": "description",
-            "type": "String"
+            "type": "String",
+            "description": "Description of the task"
           },
           {
             "name": "status",
-            "type": "String"
+            "type": "String",
+            "description": "Status of the task"
           },
           {
             "name": "assignees",
             "type": "List",
-            "ofType": "User"
+            "ofType": "User",
+            "description": "Users assigned to the task"
           },
           {
             "name": "parentTask",
             "type": "Task",
-            "ofType": "Task"
+            "ofType": "Task",
+            "description": "Parent task of the task"
           },
           {
             "name": "fields",
             "type": "List",
-            "ofType": "TaskField"
+            "ofType": "TaskField",
+            "description": "Fields associated with the task"
           },
           {
             "name": "deleted",
-            "type": "Boolean"
+            "type": "Boolean",
+            "description": "Indicates if the task is deleted"
           },
           {
             "name": "deletedAt",
-            "type": "String"
+            "type": "String",
+            "description": "The date at which the task was deleted"
           }
         ],
         "events": [],
         "actions": [
           {
             "name": "postMessage",
+            "description": "Post a message related to the task",
             "type": "Activity",
             "params": [
               {
                 "name": "type",
-                "type": "String"
+                "type": "String",
+                "description": "Type of the activity"
               },
               {
                 "name": "message",
-                "type": "String"
+                "type": "String",
+                "description": "Message to be posted"
               }
             ]
           }
@@ -302,46 +361,56 @@
       },
       {
         "name": "TaskField",
+        "description": "Represents a task field",
         "fields": [
           {
             "name": "fieldTemplateId",
-            "type": "String"
+            "type": "String",
+            "description": "Identifier for the field template"
           },
           {
             "name": "value",
-            "type": "String"
+            "type": "String",
+            "description": "Value of the field"
           },
           {
             "name": "date",
-            "type": "String"
+            "type": "String",
+            "description": "Date associated with the field"
           },
           {
             "name": "labels",
             "type": "List",
-            "ofType": "String"
+            "ofType": "String",
+            "description": "Labels associated with the field"
           },
           {
             "name": "linkedTasks",
             "type": "List",
-            "ofType": "TaskLink"
+            "ofType": "TaskLink",
+            "description": "Tasks linked to the field"
           }
         ]
       },
       {
         "name": "TaskLink",
+        "description": "Represents a link between tasks",
         "fields": [
           {
             "name": "id",
-            "type": "String"
+            "type": "String",
+            "description": "Identifier for the link"
           },
           {
             "name": "index",
-            "type": "Int"
+            "type": "Int",
+            "description": "Index of the link"
           }
         ]
       },
       {
         "name": "OrderIntent",
+        "description": "Represents an intent for ordering tasks",
         "fields": [
           {
             "name": "intent",
@@ -351,72 +420,87 @@
           {
             "name": "taskId",
             "type": "String",
-            "description": "Only used for before and afer intent"
+            "description": "Identifier of the task (used for certain intents)"
           }
         ]
       },
       {
         "name": "User",
+        "description": "Represents a user",
         "fields": [
           {
             "name": "id",
-            "type": "String"
+            "type": "String",
+            "description": "Identifier for the user"
           },
           {
             "name": "model",
-            "type": "String"
+            "type": "String",
+            "description": "Model information"
           },
           {
             "name": "state",
-            "type": "String"
+            "type": "String",
+            "description": "State information"
           },
           {
             "name": "email",
-            "type": "String"
+            "type": "String",
+            "description": "Email address of the user"
           },
           {
             "name": "username",
-            "type": "String"
+            "type": "String",
+            "description": "Username of the user"
           },
           {
             "name": "firstname",
-            "type": "String"
+            "type": "String",
+            "description": "First name of the user"
           },
           {
             "name": "lastname",
-            "type": "String"
+            "type": "String",
+            "description": "Last name of the user"
           },
           {
             "name": "access",
-            "type": "String"
+            "type": "String",
+            "description": "Access level of the user"
           },
           {
             "name": "createdAt",
-            "type": "String"
+            "type": "String",
+            "description": "Timestamp of user creation"
           },
           {
             "name": "pictureUrl",
-            "type": "String"
+            "type": "String",
+            "description": "URL of the user's picture"
           }
         ]
       },
       {
         "name": "UserPage",
+        "description": "Represents a page of users",
         "fields": [
           {
             "name": "items",
             "type": "List",
-            "ofType": "User"
+            "ofType": "User",
+            "description": "List of users"
           },
           {
             "name": "next",
             "type": "Ref",
-            "ofType": "UserPage"
+            "ofType": "UserPage",
+            "description": "Reference to the next page of users"
           }
         ]
       },
       {
         "name": "UserCollection",
+        "description": "Collection of users",
         "fields": [
           {
             "name": "one",
@@ -424,9 +508,11 @@
             "params": [
               {
                 "name": "id",
-                "type": "String"
+                "type": "String",
+                "description": "Identifier for the user"
               }
-            ]
+            ],
+            "description": "Retrieves a single user"
           },
           {
             "name": "page",
@@ -435,34 +521,41 @@
               {
                 "name": "page",
                 "type": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Page number"
               },
               {
                 "name": "pageSize",
                 "type": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Size of the page"
               }
-            ]
+            ],
+            "description": "Retrieves a page of users"
           }
         ]
       },
       {
         "name": "TaskPage",
+        "description": "Represents a page of tasks",
         "fields": [
           {
             "name": "items",
             "type": "List",
-            "ofType": "Task"
+            "ofType": "Task",
+            "description": "List of tasks"
           },
           {
             "name": "next",
             "type": "Ref",
-            "ofType": "TaskPage"
+            "ofType": "TaskPage",
+            "description": "Reference to the next page of tasks"
           }
         ]
       },
       {
         "name": "TaskCollection",
+        "description": "Collection of tasks",
         "fields": [
           {
             "name": "one",
@@ -470,9 +563,11 @@
             "params": [
               {
                 "name": "id",
-                "type": "String"
+                "type": "String",
+                "description": "Identifier for the task"
               }
-            ]
+            ],
+            "description": "Retrieves a single task"
           },
           {
             "name": "page",
@@ -481,85 +576,103 @@
               {
                 "name": "page",
                 "type": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Page number"
               },
               {
                 "name": "pageSize",
                 "type": "Int",
-                "ofType": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Size of the page"
               }
-            ]
+            ],
+            "description": "Retrieves a page of tasks"
           }
         ]
       },
       {
         "name": "Activity",
+        "description": "Represents an activity",
         "fields": [
           {
             "name": "id",
-            "type": "String"
+            "type": "String",
+            "description": "Identifier for the activity"
           },
           {
             "name": "model",
-            "type": "String"
+            "type": "String",
+            "description": "Model information"
           },
           {
             "name": "createdAt",
-            "type": "String"
+            "type": "String",
+            "description": "Date of creation of the activity"
           },
           {
             "name": "task",
-            "type": "Task"
+            "type": "Task",
+            "description": "Related task"
           },
           {
             "name": "createdUser",
-            "type": "User"
+            "type": "User",
+            "description": "The user id that posted that activity"
           },
           {
             "name": "type",
-            "type": "String"
+            "type": "String",
+            "description": "Type of the activity"
           },
           {
-            "name": "messasge",
-            "type": "String"
+            "name": "message",
+            "type": "String",
+            "description": "The message/body of this comment/description"
           },
           {
             "name": "oldValue",
-            "type": "String"
+            "type": "String",
+            "description": "Old value of the activity"
           },
           {
             "name": "newValue",
-            "type": "String"
+            "type": "String",
+            "description": "New value of the activity"
           },
           {
             "name": "readUsers",
             "type": "List",
-            "ofType": "User"
+            "ofType": "User",
+            "description": "Users who have read the activity"
           },
           {
             "name": "url",
-            "type": "String"
+            "type": "String",
+            "description": "URL associated with the activity"
           }
         ]
       },
       {
         "name": "ActivityPage",
+        "description": "Represents a page of activities",
         "fields": [
           {
             "name": "items",
             "type": "List",
-            "ofType": "Activity"
+            "ofType": "Activity",
+            "description": "List of activities"
           },
           {
             "name": "next",
             "type": "Ref",
-            "ofType": "ActivityPage"
+            "ofType": "ActivityPage",
+            "description": "Reference to the next page of activities"
           }
         ]
       },
       {
         "name": "ActivityCollection",
+        "description": "Collection of activities",
         "fields": [
           {
             "name": "one",
@@ -567,9 +680,11 @@
             "params": [
               {
                 "name": "id",
-                "type": "String"
+                "type": "String",
+                "description": "Identifier for the activity"
               }
-            ]
+            ],
+            "description": "Retrieves a single activity"
           },
           {
             "name": "page",
@@ -578,14 +693,17 @@
               {
                 "name": "page",
                 "type": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Page number"
               },
               {
                 "name": "pageSize",
                 "type": "Int",
-                "optional": true
+                "optional": true,
+                "description": "Size of the page"
               }
-            ]
+            ],
+            "description": "Retrieves a page of activities"
           }
         ]
       }
