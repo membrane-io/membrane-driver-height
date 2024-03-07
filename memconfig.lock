@@ -119,6 +119,13 @@
                 "hints": {}
               },
               {
+                "name": "test",
+                "description": "",
+                "type": "Void",
+                "params": [],
+                "hints": {}
+              },
+              {
                 "name": "endpoint",
                 "description": "Invoked when an HTTP request is received for this program",
                 "type": "String",
@@ -272,6 +279,20 @@
                     "description": "An arbitrary gref that uniquely identifies this program.",
                     "type": "Ref",
                     "ofType": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "scoped",
+                "description": "",
+                "type": "Root",
+                "params": [
+                  {
+                    "name": "url",
+                    "description": "",
+                    "type": "String",
                     "optional": false
                   }
                 ],
