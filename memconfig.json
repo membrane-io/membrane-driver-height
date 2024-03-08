@@ -341,21 +341,17 @@
         "events": [],
         "actions": [
           {
-            "name": "postMessage",
+            "name": "comment",
             "description": "Post a message related to the task",
-            "type": "Activity",
+            "type": "Ref",
             "params": [
-              {
-                "name": "type",
-                "type": "String",
-                "description": "Type of the activity"
-              },
               {
                 "name": "message",
                 "type": "String",
                 "description": "Message to be posted"
               }
-            ]
+            ],
+            "ofType": "Activity"
           }
         ]
       },

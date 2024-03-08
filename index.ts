@@ -18,14 +18,15 @@ const api = <T>(route: string, options?: Options): Promise<T> =>
     body: options?.body ? JSON.stringify(options.body) : undefined,
     headers: {
       ...options?.headers,
+      ["content-type"]: "application/json",
       Authorization: `api-key ${state.token}`,
     },
   }).then((r) => r.json());
 
-api.post = (route: string, body?: object, options?: ExtraOptions) =>
-  api(route, { method: "POST", body, ...options });
-api.patch = (route: string, body?: object, options?: ExtraOptions) =>
-  api(route, { method: "PATCH", body, ...options });
+api.post = <T>(route: string, body?: object, options?: ExtraOptions) =>
+  api<T>(route, { method: "POST", body, ...options });
+api.patch = <T>(route: string, body?: object, options?: ExtraOptions) =>
+  api<T>(route, { method: "PATCH", body, ...options });
 
 const pageParams = (args: { page?: number; pageSize?: number }) => {
   return {
@@ -100,13 +101,14 @@ export const Task: resolvers.Task = {
   parentTask(_, { obj }) {
     return TaskCollection.one!({ id: obj.parentTaskId }, {} as any);
   },
-  async postMessage({ type, message }, { self }) {
-    if (type !== "comment" && type !== "description") {
-      throw new Error("Invalid message type");
-    }
+  async comment({ message }, { self }) {
     const { id: taskId } = self.$argsAt(root.tasks.one)!;
-    // FIXME: fails saying `taskId` is not a UUID???
-    return await api.post(`activities`, { type, message, taskId });
+    const { id } = await api.post<{ id: string }>(`activities`, {
+      type: "comment",
+      message,
+      taskId,
+    });
+    return root.activities.one({ id });
   },
 };
 
@@ -140,6 +142,9 @@ export const UserCollection: resolvers.UserCollection = {
 export const Activity: resolvers.Activity = {
   gref(_, { obj }) {
     return root.activities.one({ id: obj.id });
+  },
+  createdUser(_, { obj }) {
+    return UserCollection.one!({ id: obj.createdUserId }, {} as any);
   },
 };
 
