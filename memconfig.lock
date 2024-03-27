@@ -278,6 +278,20 @@
                 "hints": {}
               },
               {
+                "name": "scoped",
+                "description": "",
+                "type": "Root",
+                "params": [
+                  {
+                    "name": "url",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
                 "name": "gref",
                 "description": "A reference to this node",
                 "type": "Ref",

@@ -54,6 +54,26 @@
             "name": "activities",
             "type": "ActivityCollection",
             "description": "Collection of activities"
+          },
+          {
+            "name": "webhooks",
+            "type": "WebhookCollection"
+          }
+        ],
+        "events": [
+          {
+            "name": "taskCreated",
+            "type": "Ref",
+            "ofType": "Task"
+          },
+          {
+            "name": "taskUpdated",
+            "type": "Ref",
+            "ofType": "Task"
+          },
+          {
+            "name": "taskDeleted",
+            "type": "String"
           }
         ]
       },
@@ -109,6 +129,7 @@
           {
             "name": "key",
             "type": "String",
+            "hints": { "primary": true },
             "description": "The unique key of your list is used as their url"
           },
           {
@@ -137,7 +158,7 @@
         ],
         "actions": [
           {
-            "name": "patch",
+            "name": "update",
             "description": "Update a task list. Any parameters not provided will be left unchanged.",
             "type": "Void",
             "params": [
@@ -191,6 +212,20 @@
                 "optional": true
               }
             ]
+          }
+        ],
+        "events": [
+          {
+            "name": "taskCreated",
+            "type": "Void"
+          },
+          {
+            "name": "taskUpdated",
+            "type": "Void"
+          },
+          {
+            "name": "taskDeleted",
+            "type": "Void"
           }
         ]
       },
@@ -341,10 +376,23 @@
             "description": "The date at which the task was deleted"
           }
         ],
-        "events": [],
+        "events": [
+          {
+            "name": "onActivity",
+            "type": "Void"
+          },
+          {
+            "name": "onUpdated",
+            "type": "Void"
+          },
+          {
+            "name": "onDeleted",
+            "type": "Void"
+          }
+        ],
         "actions": [
           {
-            "name": "comment",
+            "name": "postComment",
             "description": "Post a message related to the task",
             "type": "Ref",
             "params": [
@@ -704,6 +752,74 @@
               }
             ],
             "description": "Retrieves a page of activities"
+          }
+        ]
+      },
+      {
+        "name": "Webhook",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "model",
+            "type": "String"
+          },
+          {
+            "name": "url",
+            "type": "String"
+          },
+          {
+            "name": "events",
+            "type": "List",
+            "ofType": "String"
+          }
+        ]
+      },
+      {
+        "name": "WebhookPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Webhook"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "WebhookPage"
+          }
+        ]
+      },
+      {
+        "name": "WebhookCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Webhook",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "WebhookPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "optional": true
+              }
+            ]
           }
         ]
       }
