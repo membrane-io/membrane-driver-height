@@ -94,6 +94,7 @@
           {
             "name": "name",
             "type": "String",
+            "hints": { "primary": true },
             "description": "Name of the workspace"
           },
           {
@@ -320,6 +321,7 @@
           {
             "name": "index",
             "type": "Int",
+            "hints": { "primary": true },
             "description": "Index of the task"
           },
           {
@@ -331,6 +333,7 @@
           {
             "name": "name",
             "type": "String",
+            "hints": { "primary": true },
             "description": "Name of the task"
           },
           {
@@ -494,6 +497,7 @@
           {
             "name": "username",
             "type": "String",
+            "hints": { "primary": true },
             "description": "Username of the user"
           },
           {
