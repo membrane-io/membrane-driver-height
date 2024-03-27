@@ -129,6 +129,7 @@
           {
             "name": "key",
             "type": "String",
+            "hints": { "primary": true },
             "description": "The unique key of your list is used as their url"
           },
           {
