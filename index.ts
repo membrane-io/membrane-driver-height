@@ -349,9 +349,13 @@ async function removeWebhook(webhookEvents: WebhookEvent[]) {
   }
 }
 
-export async function endpoint({ method, body, path }) {
+export const endpoint: resolvers.Root["endpoint"] = async ({
+  method,
+  body,
+  path,
+}) => {
   if (method === "POST" && path === "/webhook") {
-    const webhook: WebhookPayload = JSON.parse(body);
+    const webhook: WebhookPayload = JSON.parse(body ?? "");
     switch (webhook.type) {
       case "task.created":
         const issue = root.tasks.one({ id: webhook.data.model.id });
@@ -376,7 +380,7 @@ export async function endpoint({ method, body, path }) {
           .$emit();
     }
   }
-}
+};
 
 /**
  * Returns `true` if the given string is a series of numbers
