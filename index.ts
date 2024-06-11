@@ -115,10 +115,14 @@ export const Task: resolvers.Task = {
 export const TaskCollection: resolvers.TaskCollection = {
   one: ({ id }) => api(`tasks/${id}`),
   async page(args, { self }) {
+    const filters = {
+      deleted: { values: [false] },
+      ...(args.listId && { listIds: { values: [args.listId] } }),
+    };
+
+    const params = new URLSearchParams({ filters: JSON.stringify(filters) });
     const { page, pageSize } = pageParams(args);
-    const { list } = await api<{ list: object[] }>(
-      `tasks?filters={"deleted":{"values":[false]}}`
-    );
+    const { list } = await api<{ list: object[] }>(`tasks?${params}`);
     return paginate(self, list, page, pageSize);
   },
 };
