@@ -74,7 +74,9 @@
           {
             "name": "name",
             "type": "String",
-            "hints": { "primary": true },
+            "hints": {
+              "primary": true
+            },
             "description": "Name of the workspace"
           },
           {
@@ -287,7 +289,9 @@
           {
             "name": "index",
             "type": "Int",
-            "hints": { "primary": true },
+            "hints": {
+              "primary": true
+            },
             "description": "Index of the task"
           },
           {
@@ -299,7 +303,9 @@
           {
             "name": "name",
             "type": "String",
-            "hints": { "primary": true },
+            "hints": {
+              "primary": true
+            },
             "description": "Name of the task"
           },
           {
@@ -450,7 +456,9 @@
           {
             "name": "username",
             "type": "String",
-            "hints": { "primary": true },
+            "hints": {
+              "primary": true
+            },
             "description": "Username of the user"
           },
           {
@@ -584,6 +592,11 @@
                 "type": "Int",
                 "optional": true,
                 "description": "Size of the page"
+              },
+              {
+                "name": "listId",
+                "type": "String",
+                "optional": true
               }
             ],
             "description": "Retrieves a page of tasks"
